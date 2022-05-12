@@ -15,7 +15,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    
+                    <x-nav-link :href="route('zaduzeni_ticketi')" :active="request()->routeIs('zaduzeni_ticketi')">
+                        {{ __('Zaduženi ticketi') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('zatvoreni_ticketi')" :active="request()->routeIs('zatvoreni_ticketi')">
+                        {{ __('Zatvoreni ticketi') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('otvori_ticket')" :active="request()->routeIs('otvori_ticket')">
+                        {{ __('Novi ticket') }}
+                    </x-nav-link>
                 </div>
             </div>
 
