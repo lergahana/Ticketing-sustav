@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\FactsController@data');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect('/otvoreni_ticketi');
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/home', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    return redirect('/otvoreni_ticketi');
+})->middleware(['auth'])->name('home');
 
 Route::get('/zaduzeni_ticketi', function () {
     return view('agent.zaduzeni_ticketi');
@@ -32,12 +32,20 @@ Route::get('/zatvoreni_ticketi', function () {
     return view('agent.zatvoreni_ticketi');
 })->middleware(['auth'])->name('zatvoreni_ticketi');
 
-Route::get('/otvori_ticket', function () {
-    return view('agent.otvori_ticket');
-})->middleware(['auth'])->name('otvori_ticket');
+Route::get('/otvoreni_ticketi', function () {
+    return view('agent.otvoreni_ticketi');
+})->middleware(['auth'])->name('otvoreni_ticketi');
+
+Route::get('/novi_ticket', function () {
+    return view('agent.novi_ticket');
+})->middleware(['auth'])->name('novi_ticket');
 
 
-Route::get('search_clients', 'App\Http\Controllers\SearchClientsController@layout');
 Route::get('search_clients_ajax', 'App\Http\Controllers\SearchClientsController@dataAjax');
+
+Route::get('search_technicians_ajax', 'App\Http\Controllers\SearchTechniciansController@dataAjax');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/tickets/store', 'App\Http\Controllers\TicketsController@store');
+Route::middleware(['auth:sanctum', 'verified'])->post('/novi_klijent', 'App\Http\Controllers\ClientsController@store');
 
 require __DIR__.'/auth.php';

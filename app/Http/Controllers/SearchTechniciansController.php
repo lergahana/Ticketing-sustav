@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use DB;
 
-class SearchClientsController extends Controller
+class SearchTechniciansController extends Controller
 {
     /**
      * Show the application dataAjax.
@@ -18,7 +18,7 @@ class SearchClientsController extends Controller
     	$data = [];
         if($request->has('q')){
             $search = $request->q;
-            $data = DB::table("clients")
+            $data = DB::table("technicians")
             		->select("id","name")
             		->where('name','LIKE',"%$search%")
             		->get();
