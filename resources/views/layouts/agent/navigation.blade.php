@@ -12,6 +12,9 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('novi_ticket')" :active="request()->routeIs('novi_ticket')">
+                        {{ __('Novi ticket') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('otvoreni_ticketi')" :active="request()->routeIs('otvoreni_ticketi')">
                         {{ __('Otvoreni ticketi') }}
                     </x-nav-link>    
@@ -20,9 +23,6 @@
                     </x-nav-link>
                     <x-nav-link :href="route('zatvoreni_ticketi')" :active="request()->routeIs('zatvoreni_ticketi')">
                         {{ __('Zatvoreni ticketi') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('novi_ticket')" :active="request()->routeIs('novi_ticket')">
-                        {{ __('Novi ticket') }}
                     </x-nav-link>
                 </div>
             </div>

@@ -32,10 +32,6 @@ Route::get('/zatvoreni_ticketi', function () {
     return view('agent.zatvoreni_ticketi');
 })->middleware(['auth'])->name('zatvoreni_ticketi');
 
-Route::get('/otvoreni_ticketi', function () {
-    return view('agent.otvoreni_ticketi');
-})->middleware(['auth'])->name('otvoreni_ticketi');
-
 Route::get('/novi_ticket', function () {
     return view('agent.novi_ticket');
 })->middleware(['auth'])->name('novi_ticket');
@@ -44,6 +40,13 @@ Route::get('/novi_ticket', function () {
 Route::get('search_clients_ajax', 'App\Http\Controllers\SearchClientsController@dataAjax');
 
 Route::get('search_technicians_ajax', 'App\Http\Controllers\SearchTechniciansController@dataAjax');
+
+
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/otvoreni_ticketi', 'App\Http\Controllers\TicketsController@otvoreni_index')->name('otvoreni_ticketi');
+Route::middleware(['auth:sanctum', 'verified'])->get('/zatvoreni_ticketi', 'App\Http\Controllers\TicketsController@zatvoreni_index')->name('zatvoreni_ticketi');
+Route::middleware(['auth:sanctum', 'verified'])->get('/zaduzeni_ticketi', 'App\Http\Controllers\TicketsController@zaduzeni_index')->name('zaduzeni_ticketi');
+Route::middleware(['auth:sanctum', 'verified'])->get('/ticket/{id}', 'App\Http\Controllers\TicketsController@show');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/tickets/store', 'App\Http\Controllers\TicketsController@store');
 Route::middleware(['auth:sanctum', 'verified'])->post('/novi_klijent', 'App\Http\Controllers\ClientsController@store');

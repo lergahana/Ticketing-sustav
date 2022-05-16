@@ -10,9 +10,131 @@ use App\Models\Technician;
 use App\Models\Status;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+use Illuminate\Support\Facades\DB;
 
 class TicketsController extends Controller
 {
+
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function otvoreni_index()
+    {
+        $id_user = Auth::id();
+        
+        $all = DB::table('tickets')->where(
+            'id_user', $id_user)->where(
+                'id_status', 1)->get();
+        
+        return view('agent/otvoreni_ticketi', [
+            'tickets' => $all
+        ]);
+    }
+
+            /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function zatvoreni_index()
+    {
+        $id_user = Auth::id();
+        
+        $all = DB::table('tickets')->where(
+            'id_user', $id_user)->where(
+                'id_status', 3)->get();
+        
+        return view('agent/zatvoreni_ticketi', [
+            'tickets' => $all
+        ]);
+    }
+
+                /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function zaduzeni_index()
+    {
+        $id_user = Auth::id();
+        
+        $all = DB::table('tickets')->where(
+            'id_user', $id_user)->where(
+                'id_status', 2)->get();
+        
+        return view('agent/zaduzeni_ticketi', [
+            'tickets' => $all
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //session(['id' => $id]);
+        $id_user = Auth::id();
+        $ticket = Ticket::where('id', $id)->get();
+        $status = Status::where('id', $ticket[0]->id_status)->get();
+        $client = Client::where('id', $ticket[0]->id_client)->get();
+        $technician = Technician::where('id', $ticket[0]->id_technician)->get();
+
+
+        return view('agent/ticket', [
+            'ticket' => $ticket[0],
+            'status' => $status[0],
+            'client' => $client[0],
+            'technician' => $technician[0],
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     
     public function store(Request $request)
     {
