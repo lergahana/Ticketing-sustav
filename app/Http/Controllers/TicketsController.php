@@ -87,7 +87,7 @@ class TicketsController extends Controller
         $technician = Technician::where('id', $ticket[0]->id_technician)->get();
 
 
-        return view('agent/ticket', [
+        return view('agent/prikazi_ticket', [
             'ticket' => $ticket[0],
             'status' => $status[0],
             'client' => $client[0],
@@ -103,7 +103,18 @@ class TicketsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id_user = Auth::id();
+        $ticket = Ticket::where('id', $id)->get();
+        $status = Status::where('id', $ticket[0]->id_status)->get();
+        $client = Client::where('id', $ticket[0]->id_client)->get();
+        $technician = Technician::where('id', $ticket[0]->id_technician)->get();
+
+        return view('agent.uredi_ticket', [
+            'ticket' => $ticket[0],
+            'status' => $status[0],
+            'client' => $client[0],
+            'technician' => $technician[0],
+        ]);
     }
 
     /**
@@ -115,7 +126,40 @@ class TicketsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'opis' => 'required',
+            'status' => 'required',
+        ]);
+
+        $ticket = Ticket::find($id);
+        $client = Client::find($ticket->id_client);
+
+        $ticket->name = $request->name;
+
+        $id_user = Auth::id();
+        $ticket->id_user = $id_user;
+
+        $ticket->description = $request->opis;
+
+        if ($request->itemName){
+            $technician = Technician::where('id', $request->itemName)->get()->pluck('id')->toArray();
+            $ticket->id_technician = $technician[0];
+        }
+
+        if ($request->klijent){
+            $client->name = $request->klijent;
+            $client->save();
+            $ticket->id_client = $client->id;
+        }
+
+        $status = Status::where('status', $request->status)->get()->pluck('id')->toArray();
+        $ticket->id_status = $status[0];
+
+        $ticket->save();
+        if ($request->status == "otvoren") return redirect('/otvoreni_ticketi');
+        if ($request->status == "zadužen") return redirect('/zaduzeni_ticketi');
+        if ($request->status == "zatvoren") return redirect('/zatvoreni_ticketi');
     }
 
     /**
@@ -126,7 +170,14 @@ class TicketsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ticket = Ticket::find($id);
+        $status = Status::find($ticket->id_status);
+
+        $ticket->delete();
+
+        if ($status->status == "otvoren") return redirect('/otvoreni_ticketi');
+        if ($status->status == "zadužen") return redirect('/zaduzeni_ticketi');
+        if ($status->status == "zatvoren") return redirect('/zatvoreni_ticketi');
     }
 
     /**
