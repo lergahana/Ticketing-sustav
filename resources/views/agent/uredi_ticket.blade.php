@@ -7,6 +7,13 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+        <style>
+            .btn-pink {
+                background-color: #D77FA1;
+                color: white;
+                margin-right: 5px;
+            }    
+        </style>
         </h2>
     </x-slot>
 
@@ -74,7 +81,7 @@
                     </tr>
                 </table>
 
-                <button type="submit" class="btn btn-primary" style="float:right;">Spremi promjene</button></form>
+                <button type="submit" class="btn btn-pink" style="float:right;">Spremi promjene</button></form>
             </div>
         </div>
     </div>

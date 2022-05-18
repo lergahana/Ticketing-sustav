@@ -4,6 +4,12 @@
 	border-color: #007bff
 }
 
+.btn-pink {
+	background-color: #D77FA1;
+  	color: white;
+}
+
+
 .btn {
 	display: inline-block;
 	font-weight: 400;

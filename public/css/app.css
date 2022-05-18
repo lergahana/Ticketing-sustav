@@ -1,3 +1,23 @@
+.pink{
+  background-color: #D77FA1;
+}
+
+.bg-image{
+  background-image: url("/images/background.jpg");
+}
+
+.light-blue{
+  background-color: #D6E5FA;
+}
+
+.light{
+  background-color: #FFF9F9;
+}
+
+.purple{
+  background-color: #BAABDA;
+}
+
 /*
 ! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
 *//*

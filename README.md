@@ -1,4 +1,4 @@
-<p align="center"><img src="/public/images/logo-transparent.png" width="400"></p>
+<p align="center"><img src="/public/images/logo.png" width="400"></p>
 
 ## About Project
 

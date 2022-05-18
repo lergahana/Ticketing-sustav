@@ -16,7 +16,7 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
-               <button class="btn" id="ticket_btn" style="font-size:1.1vw;"><i class="fa fa-plus-circle"></i>&nbsp&nbsp Otvori ticket</button>
+               <button class="btn" id="ticket_btn" style="font-size:1.1vw;"><i class="fa fa-plus-circle" style="font-size:1.3vw; color:#D77FA1;"></i>&nbsp&nbsp Otvori ticket</button>
                <script src="js/new_ticket_form.js"></script>
                <div class="card-body" id="form" style="display:none">
                   <form name="form" method = "POST" action="/tickets/store" style="margin-bottom:5%;">
@@ -32,7 +32,7 @@
                      <div class="form-group">
                         <label for="status">Status:</label>
                         </br>
-                        <input type="radio" name="status" id="otvoren" value="otvoren">
+                        <input type="radio" name="status" id="otvoren" value="otvoren" style="accent-color: pink;">
                         <label for="otvoren" style="font-weight: normal">otvoren</label><br>
                         <input type="radio" name="status" id="zadužen" value="zadužen">
                         <label for="zadužen" style="font-weight: normal">zadužen</label><br>
@@ -104,7 +104,7 @@
                            });
                         </script>
                      </div>
-                     <button type="submit" class="btn btn-primary" style="float:right;">Kreiraj ticket</button>
+                     <button type="submit" class="btn btn-primary" style="float:right; background-color: #D77FA1; border-color: #D77FA1;">Kreiraj ticket</button>
                   </form>
                </div>
             </div>
