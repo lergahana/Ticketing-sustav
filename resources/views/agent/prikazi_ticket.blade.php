@@ -38,10 +38,17 @@
                     <th scope="row">Klijent: </th>
                     <td>{{ $client->name }}</td>
                     </tr>
-                    <tr>
-                    <th scope="row">Tehničar: </th>
-                    <td>{{ $technician->name }}</td>
-                    </tr>
+                    
+                    @if($num_techs > 0)
+                        <tr>
+                        <th scope="row">Tehničar: </th>
+                        <td>
+                            @for ($i = 0; $i < $num_techs; $i++)
+                                {{ $technicians[$i][0]->name }}</br>
+                            @endfor
+                        </td>
+                        </tr>
+                    @endif
                 </table>
 
                 <a href="{{ url()->previous() }}"> <button class="btn btn-pink" style="float:right;">Povratak</button></a>

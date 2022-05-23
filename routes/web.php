@@ -17,22 +17,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\FactsController@data');
 
 Route::get('/dashboard', function () {
-    return redirect('/otvoreni_ticketi');
+    return redirect('/novi_ticket');
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/home', function () {
-    return redirect('/otvoreni_ticketi');
+    return redirect('/novi_ticket');
 })->middleware(['auth'])->name('home');
 
-Route::get('/novi_ticket', function () {
-    return view('agent.novi_ticket');
-})->middleware(['auth'])->name('novi_ticket');
 
 
-Route::get('search_clients_ajax', 'App\Http\Controllers\SearchClientsController@dataAjax');
+/*RUTA ZA DROPDOWN KLIJENATA
+Route::get('search_clients_ajax', 'App\Http\Controllers\SearchClientsController@dataAjax');*/
 
-Route::get('search_technicians_ajax', 'App\Http\Controllers\SearchTechniciansController@dataAjax');
+Route::middleware(['auth:sanctum', 'verified'])->get('/novi_ticket', 'App\Http\Controllers\TicketsController@forma_novi')->name('novi_ticket');
 
+/*UREDITI RUTE DA USMJERAVAJU NA LISTU TICKETA I JEDNU FUNKCIJU*/
 Route::middleware(['auth:sanctum', 'verified'])->get('/otvoreni_ticketi', 'App\Http\Controllers\TicketsController@otvoreni_index')->name('otvoreni_ticketi');
 Route::middleware(['auth:sanctum', 'verified'])->get('/zaduzeni_ticketi', 'App\Http\Controllers\TicketsController@zaduzeni_index')->name('zaduzeni_ticketi');
 Route::middleware(['auth:sanctum', 'verified'])->get('/zatvoreni_ticketi', 'App\Http\Controllers\TicketsController@zatvoreni_index')->name('zatvoreni_ticketi');

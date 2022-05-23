@@ -2,7 +2,7 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <img src="{{ asset('images/logo2.png') }}" class="img-fluid" alt="Ticketing sustav" style="height:25px;">
             </a>
         </x-slot>
 
@@ -47,7 +47,7 @@
                     </a>
                 @endif
 
-                <x-button class="ml-3">
+                <x-button class="ml-3" style="background-color:#D77FA1 ;">
                     {{ __('Log in') }}
                 </x-button>
             </div>

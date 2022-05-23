@@ -21,8 +21,6 @@ class CreateTicketsTable extends Migration
             $table->foreign('id_status')->references('id')->on('status');
             $table->unsignedBigInteger('id_client');
             $table->foreign('id_client')->references('id')->on('clients');
-            $table->unsignedBigInteger('id_technician');
-            $table->foreign('id_technician')->references('id')->on('technicians');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
