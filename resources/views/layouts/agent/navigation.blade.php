@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('zatvoreni_ticketi')" :active="request()->routeIs('zatvoreni_ticketi')">
                         {{ __('Zatvoreni ticketi') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('novi_klijent')" :active="request()->routeIs('novi_klijent')">
+                        {{ __('Novi klijent') }}
+                    </x-nav-link>
                 </div>
             </div>
 

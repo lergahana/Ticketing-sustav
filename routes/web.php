@@ -42,6 +42,8 @@ Route::middleware(['auth:sanctum', 'verified'])->put('/azuriraj_ticket/{id}', 'A
 Route::middleware(['auth:sanctum', 'verified'])->get('/obrisi_ticket/{id}', 'App\Http\Controllers\TicketsController@destroy');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/tickets/store', 'App\Http\Controllers\TicketsController@store');
-Route::middleware(['auth:sanctum', 'verified'])->post('/novi_klijent', 'App\Http\Controllers\ClientsController@store');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/novi_klijent', 'App\Http\Controllers\ClientsController@forma_novi')->name('novi_klijent');;
+Route::middleware(['auth:sanctum', 'verified'])->post('/clients/store', 'App\Http\Controllers\ClientsController@store');
 
 require __DIR__.'/auth.php';

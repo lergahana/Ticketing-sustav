@@ -62,7 +62,15 @@
                     </tr>
                     <tr>
                     <th scope="row"><label for="klijent">Klijent: </label></th>
-                    <td><input type="text" id="klijent" name="klijent" class="form-control" style="height:41px;" value="{{ $client->name }}"></td>
+                    <td>
+                        <select id="search_client" name="klijent" style="width:80%; border-color:#D3D3D3; border-radius: 5px;" required>
+                            <option value="{{ $client->id }}" disabled selected>{{ $client->name }}</option>
+                            <option value="" disabled>─────────────────────────</option> 
+                            @foreach ($all_clients as $c)
+                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                            @endforeach
+                        </select> 
+                    </td>
                     </tr>
                     @if ($status->status == 'zadužen')
                         <tr id="tr_tech" style="display:table-row">

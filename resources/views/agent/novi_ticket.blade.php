@@ -51,8 +51,13 @@
                         <label for="zatvoren" style="font-weight: normal">zatvoren</label>-->
                      </div>
                      <div class="form-group">
-                        <label for="klijent">Klijent: </label>
-                        <input type="text" id="klijent" name="klijent" placeholder="Ime i prezime" class="form-control" style="height:41px;" required>
+                        <label for="klijent">Klijent: </label></br>
+                        <select id="search_client" onclick="client_size();" name="klijent" style="width:80%; border-color:#D3D3D3; border-radius: 5px;" required>
+                           <option value="" disabled selected>Izaberi klijenta: </option>
+                           @foreach ($clients as $c)
+                              <option value="{{ $c->id }}">{{ $c->name }}</option>
+                           @endforeach
+                        </select>
                      </div>
 
                      <div id="sve_tech" style="display:none;">
@@ -80,7 +85,7 @@
                      </div>
 
                      <button type="submit" class="btn btn-primary" style="float:right; background-color: #D77FA1; border-color: #D77FA1; margin-top:1%;">Kreiraj ticket</button>
-                     
+                     <!--<input class="btn btn-primary" type="reset" style="float:left; background-color: #D77FA1; border-color: #D77FA1; margin-top:1%;" value="Reset">-->
                   </form>
                </div>
             </div>
@@ -129,4 +134,5 @@
       let original = document.getElementById("more_technicians");
       original.removeChild(original.firstChild);
    }
+
 </script>

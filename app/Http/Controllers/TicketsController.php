@@ -74,9 +74,11 @@ class TicketsController extends Controller
 
     public function forma_novi(){
         $all_tech = DB::table('technicians')->get();
+        $all_clients = DB::table('clients')->get();
 
         return view('agent.novi_ticket', [
-            'technicians' => $all_tech
+            'technicians' => $all_tech,
+            'clients' => $all_clients
         ]);
     }
 
@@ -122,6 +124,7 @@ class TicketsController extends Controller
         $ticket = Ticket::where('id', $id)->get();
         $status = Status::where('id', $ticket[0]->id_status)->get();
         $client = Client::where('id', $ticket[0]->id_client)->get();
+        $all_clients = Client::all();
         $tech_id = TicketTechnician::where('id_ticket', $id)->get()->pluck('id_technician')->toArray();
         $techs = array();
         $i = 0;
@@ -135,6 +138,7 @@ class TicketsController extends Controller
             'ticket' => $ticket[0],
             'status' => $status[0],
             'client' => $client[0],
+            'all_clients' => $all_clients,
             'technicians' => $techs,
             'num_techs' => $i,
             'all_techs' => $all_techs,
@@ -178,16 +182,13 @@ class TicketsController extends Controller
         }
 
         if ($request->klijent){
-            $client->name = $request->klijent;
-            $client->save();
-            $ticket->id_client = $client->id;
+            $ticket->id_client = $request->klijent;
         }
 
         $status = Status::where('status', $request->status)->get()->pluck('id')->toArray();
-        if($request->tech == null){
+        if($request->tech == null && $request->status != 'zatvoren'){
             $old_relation = TicketTechnician::where('id_ticket', $id)->delete();
             $status = Status::where('status', 'otvoren')->get()->pluck('id')->toArray();
-            
         }
         $ticket->id_status = $status[0];
 
@@ -239,11 +240,7 @@ class TicketsController extends Controller
 
         $ticket->description = $request->opis;
 
-        $client = new Client();
-        $client->name = $request->klijent;
-        $client->save();
-
-        $ticket->id_client = $client->id;
+        $ticket->id_client = $request->klijent;
 
         if($request->tech == null){
             $request->status = 'otvoren';
