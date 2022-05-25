@@ -13,6 +13,9 @@
                 color: white;
                 margin-right: 5px;
             }    
+            th {
+                width:15%;
+            }
         </style>
 
         <!--Alert for technicians-->
@@ -31,7 +34,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="width:80%">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <form name="form" method = "POST" action="/azuriraj_ticket/{{ $ticket->id }}" style="margin-bottom:5%;">
                 @csrf
@@ -104,10 +107,10 @@
                               </select>
                            </div>
                         </div>
-                        <div style="float:right; margin-top:-5%; margin-right:15%">
+                        <div style="float:right; margin-top:-4%; margin-right:15%">
                             <button type="button" class="btn" style="font-size:1.1vw; display: inline-block;" onclick="add_technician()"><i class="fa fa-plus-circle" style="font-size:1.3vw; color:#D77FA1;"></i></button>
                         </div>
-                        <div style="float:right; margin-top:-5%; margin-right:12%">
+                        <div style="float:right; margin-top:-4%; margin-right:12%">
                             <button type="button" class="btn" style="font-size:1.1vw; display: inline-block;" onclick="rem_technician()"><i class="fa fa-minus-circle" style="font-size:1.3vw; color:#BAABDA;"></i></button>
                         </div>
                         <div id="more_technicians"></div>

@@ -9,13 +9,16 @@
                 margin-right: 5px;
                 margin-bottom: 5px;
             }    
+            th {
+                width:20%;
+            }
         </style>
         {{ $ticket->name }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="width:60%">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <table class="table table-hover">
                     <tr>
