@@ -3,7 +3,9 @@
 }
 
 .bg-image{
-  background-image: url("/images/background.jpg");
+  /*background-image: url("/images/background.jpg");*/
+  background-color: purple;
+  background-image: linear-gradient(to bottom right, #363062, #6A5495);
 }
 
 .light-blue{

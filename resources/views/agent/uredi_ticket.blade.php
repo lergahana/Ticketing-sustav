@@ -34,7 +34,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="width:80%">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <form name="form" method = "POST" action="/azuriraj_ticket/{{ $ticket->id }}" style="margin-bottom:5%;">
                 @csrf
@@ -81,7 +81,7 @@
                         <tr id="tr_tech" style="display:none">
                     @endif
                         <th scope="row">Tehničar: </br>
-                        <a href="javascript:void(0);" onclick="control_tech()" style="color: #D77FA1; margin-left:-25px;">Uredi</a>
+                        <a href="javascript:void(0);" onclick="control_tech()" style="color: #D77FA1;">Uredi</a>
                         </th>
                         @if($num_techs > 0)
                         <td>
