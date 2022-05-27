@@ -10,6 +10,7 @@ use App\Models\Client;
 use App\Models\Status;
 use App\Models\User;
 
+use Notification;
 use App\Notifications\EmailNotification;
 
 use Illuminate\Http\Request;
@@ -167,6 +168,8 @@ class TicketsController extends Controller
         $ticket = Ticket::find($id);
         $client = Client::find($ticket->id_client);
 
+        $agent = User::where('id', $ticket->id_user)->get();
+
         $ticket->name = $request->name;
 
         $id_user = Auth::id();
@@ -181,6 +184,7 @@ class TicketsController extends Controller
                 $relation->id_ticket = $ticket->id;
                 $relation->id_technician = $technician[0];
                 $relation->save();
+                $sending = $this->send($tech, $agent, $request->status);
             }
         }
 
@@ -262,7 +266,7 @@ class TicketsController extends Controller
                 $relation->id_ticket = $ticket->id;
                 $relation->id_technician = $technician[0];
                 $relation->save();
-                return $this->send($tech, $agent);
+                $sending = $this->send($tech, $agent, $request->status);
             }
         }
 
@@ -270,7 +274,7 @@ class TicketsController extends Controller
         if ($request->status == "zadužen") return redirect('/zaduzeni_ticketi');
     }
 
-    public function send($tech, $agent) 
+    public function send($tech, $agent, $status) 
     {
     	$user = User::where('id', $tech)->get();
 
@@ -284,7 +288,6 @@ class TicketsController extends Controller
         ];
   
         Notification::send($user, new EmailNotification($project));
-   
-        dd('Notification sent!');
+        return "Notification";
     }
 }

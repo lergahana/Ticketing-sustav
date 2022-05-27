@@ -16,9 +16,12 @@ class EmailNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+
+    protected $project;
+    
+    public function __construct($project)
     {
-        //
+        $this->project = $project;
     }
 
     /**
@@ -41,10 +44,10 @@ class EmailNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                        ->greeting($this->project['greeting'])
-                        ->line($this->project['body'])
-                        ->action($this->project['actionText'], $this->project['actionURL'])
-                        ->line($this->project['thanks']);
+            ->greeting($this->project['greeting'])
+            ->line($this->project['body'])
+            ->action($this->project['actionText'], $this->project['actionURL'])
+            ->line($this->project['thanks']);
     }
 
     /**
