@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Ticket;
 use App\Models\TicketTechnician;
 use App\Models\Client;
-use App\Models\Technician;
 use App\Models\Status;
+use App\Models\User;
+
+use App\Notifications\EmailNotification;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -73,7 +75,8 @@ class TicketsController extends Controller
     }
 
     public function forma_novi(){
-        $all_tech = DB::table('technicians')->get();
+        $all_tech = User::where('role', 'technician')->get();
+        /*$all_tech = DB::table('technicians')->get();*/
         $all_clients = DB::table('clients')->get();
 
         return view('agent.novi_ticket', [
@@ -99,7 +102,7 @@ class TicketsController extends Controller
         $techs = array();
         $i = 0;
         foreach($tech_id as $t){
-            $techs[$i] = Technician::select('id', 'name')->where('id', $t)->get();
+            $techs[$i] = User::select('id', 'name')->where('id', $t)->get();
             $i += 1;
         }
 
@@ -129,10 +132,10 @@ class TicketsController extends Controller
         $techs = array();
         $i = 0;
         foreach($tech_id as $t){
-            $techs[$i] = Technician::select('id', 'name')->where('id', $t)->get();
+            $techs[$i] = User::select('id', 'name')->where('id', $t)->get();
             $i += 1;
         }
-        $all_techs = Technician::all();
+        $all_techs = User::where('role', 'technician')->get();
 
         return view('agent/uredi_ticket', [
             'ticket' => $ticket[0],
@@ -173,7 +176,7 @@ class TicketsController extends Controller
         if($request->tech){
             $old_relation = TicketTechnician::where('id_ticket', $id)->delete();
             foreach ($request->tech as $tech){
-                $technician = Technician::where('id', $tech)->get()->pluck('id')->toArray();
+                $technician = User::where('id', $tech)->get()->pluck('id')->toArray();
                 $relation = new TicketTechnician();
                 $relation->id_ticket = $ticket->id;
                 $relation->id_technician = $technician[0];
@@ -238,6 +241,8 @@ class TicketsController extends Controller
         $id_user = Auth::id();
         $ticket->id_user = $id_user;
 
+        $agent = User::where('id', $id_user)->get();
+
         $ticket->description = $request->opis;
 
         $ticket->id_client = $request->klijent;
@@ -252,15 +257,34 @@ class TicketsController extends Controller
 
         if($request->tech){        
             foreach ($request->tech as $tech){
-                $technician = Technician::where('id', $tech)->get()->pluck('id')->toArray();
+                $technician = User::where('id', $tech)->get()->pluck('id')->toArray();
                 $relation = new TicketTechnician();
                 $relation->id_ticket = $ticket->id;
                 $relation->id_technician = $technician[0];
                 $relation->save();
+                return $this->send($tech, $agent);
             }
         }
 
         if ($request->status == "otvoren") return redirect('/otvoreni_ticketi');
         if ($request->status == "zadužen") return redirect('/zaduzeni_ticketi');
+    }
+
+    public function send($tech, $agent) 
+    {
+    	$user = User::where('id', $tech)->get();
+
+        $project = [
+            'greeting' => 'Hi '.$user[0]->name.',',
+            'body' => 'There is a new ticket assigned to you by '.$agent[0]->name.'.',
+            'thanks' => 'Thank you!',
+            'actionText' => 'View Project',
+            'actionURL' => url('/'),
+            'id' => 57
+        ];
+  
+        Notification::send($user, new EmailNotification($project));
+   
+        dd('Notification sent!');
     }
 }

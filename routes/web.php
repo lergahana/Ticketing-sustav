@@ -16,34 +16,37 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\FactsController@data');
 
-Route::get('/dashboard', function () {
-    return redirect('/novi_ticket');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', 'App\Http\Controllers\HomeController@home')->name('dashboard');;
 
-Route::get('/home', function () {
-    return redirect('/novi_ticket');
-})->middleware(['auth'])->name('home');
+Route::get('/home', 'App\Http\Controllers\HomeController@home')->name('home');;
+
+Route::group(['middleware' => 'agent'], function () {
+    Route::middleware(['auth:sanctum', 'verified'])->get('/send_email', '\App\Http\Controllers\EmailController@send')->name('send_email');
+    
+    Route::middleware(['auth:sanctum', 'verified'])->get('/novi_ticket', 'App\Http\Controllers\TicketsController@forma_novi')->name('novi_ticket');
+
+    Route::middleware(['auth:sanctum', 'verified'])->get('/otvoreni_ticketi', 'App\Http\Controllers\TicketsController@otvoreni_index')->name('otvoreni_ticketi');
+    Route::middleware(['auth:sanctum', 'verified'])->get('/zaduzeni_ticketi', 'App\Http\Controllers\TicketsController@zaduzeni_index')->name('zaduzeni_ticketi');
+    Route::middleware(['auth:sanctum', 'verified'])->get('/zatvoreni_ticketi', 'App\Http\Controllers\TicketsController@zatvoreni_index')->name('zatvoreni_ticketi');
+    
+    Route::middleware(['auth:sanctum', 'verified'])->get('/prikazi_ticket/{id}', 'App\Http\Controllers\TicketsController@show');
+    Route::middleware(['auth:sanctum', 'verified'])->get('/uredi_ticket/{id}', 'App\Http\Controllers\TicketsController@edit');
+    Route::middleware(['auth:sanctum', 'verified'])->put('/azuriraj_ticket/{id}', 'App\Http\Controllers\TicketsController@update');
+    Route::middleware(['auth:sanctum', 'verified'])->get('/obrisi_ticket/{id}', 'App\Http\Controllers\TicketsController@destroy');
+    
+    Route::middleware(['auth:sanctum', 'verified'])->post('/tickets/store', 'App\Http\Controllers\TicketsController@store');
+    
+    Route::middleware(['auth:sanctum', 'verified'])->get('/novi_klijent', 'App\Http\Controllers\ClientsController@forma_novi')->name('novi_klijent');;
+    Route::middleware(['auth:sanctum', 'verified'])->post('/clients/store', 'App\Http\Controllers\ClientsController@store');
+});
+
+Route::group(['middleware' => 'technician'], function () {
+    Route::middleware(['auth:sanctum', 'verified'])->get('/lista_ticketa', 'App\Http\Controllers\TechniciansController@index_tickets')->name('lista_ticketa');
+    Route::middleware(['auth:sanctum', 'verified'])->get('tech/prikazi_ticket/{id}', 'App\Http\Controllers\TechniciansController@show_tickets');
+    /*Route::middleware(['auth:sanctum', 'verified'])->get('/uredi_ticket/{id}', 'App\Http\Controllers\TicketsController@edit');*/
+});
 
 
 
-/*RUTA ZA DROPDOWN KLIJENATA
-Route::get('search_clients_ajax', 'App\Http\Controllers\SearchClientsController@dataAjax');*/
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/novi_ticket', 'App\Http\Controllers\TicketsController@forma_novi')->name('novi_ticket');
-
-/*UREDITI RUTE DA USMJERAVAJU NA LISTU TICKETA I JEDNU FUNKCIJU*/
-Route::middleware(['auth:sanctum', 'verified'])->get('/otvoreni_ticketi', 'App\Http\Controllers\TicketsController@otvoreni_index')->name('otvoreni_ticketi');
-Route::middleware(['auth:sanctum', 'verified'])->get('/zaduzeni_ticketi', 'App\Http\Controllers\TicketsController@zaduzeni_index')->name('zaduzeni_ticketi');
-Route::middleware(['auth:sanctum', 'verified'])->get('/zatvoreni_ticketi', 'App\Http\Controllers\TicketsController@zatvoreni_index')->name('zatvoreni_ticketi');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/prikazi_ticket/{id}', 'App\Http\Controllers\TicketsController@show');
-Route::middleware(['auth:sanctum', 'verified'])->get('/uredi_ticket/{id}', 'App\Http\Controllers\TicketsController@edit');
-Route::middleware(['auth:sanctum', 'verified'])->put('/azuriraj_ticket/{id}', 'App\Http\Controllers\TicketsController@update');
-Route::middleware(['auth:sanctum', 'verified'])->get('/obrisi_ticket/{id}', 'App\Http\Controllers\TicketsController@destroy');
-
-Route::middleware(['auth:sanctum', 'verified'])->post('/tickets/store', 'App\Http\Controllers\TicketsController@store');
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/novi_klijent', 'App\Http\Controllers\ClientsController@forma_novi')->name('novi_klijent');;
-Route::middleware(['auth:sanctum', 'verified'])->post('/clients/store', 'App\Http\Controllers\ClientsController@store');
 
 require __DIR__.'/auth.php';

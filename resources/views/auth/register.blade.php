@@ -45,6 +45,13 @@
                                 name="password_confirmation" required />
             </div>
 
+            <div class="mt-4" style="font-size:15px;">
+                <input type="radio" id="agent" name="role" value="agent" required>
+                <label for="agent">Agent</label><br>
+                <input type="radio" id="technician" name="role" value="technician">
+                <label for="technician">Tehničar</label><br>
+            </div>
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}

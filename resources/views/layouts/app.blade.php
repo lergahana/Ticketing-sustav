@@ -19,7 +19,11 @@
 
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-image">
-            @include('layouts.agent.navigation')
+            @if(Auth::user()->role == 'agent')
+                @include('layouts.agent.navigation')
+            @else
+                @include('layouts.tech.navigation')
+            @endif
 
             <!-- Page Heading -->
             <header class="shadow bg-white">

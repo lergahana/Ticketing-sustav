@@ -13,7 +13,7 @@
 
                <div class="card-body col-md-12" id="form">
                   <form name="form" method = "POST" action="/clients/store" style="margin-bottom:5%;">
-                     @csrf
+                  @csrf
                      <div class="form-group">
                         <label for="naziv">Ime i prezime:</label>
                         <input type="text" id="name" name="name" class="form-control" required>
