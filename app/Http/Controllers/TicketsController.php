@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Models\User;
 
 use Notification;
+use Exception;
 use App\Notifications\EmailNotification;
 
 use Illuminate\Http\Request;
@@ -289,7 +290,12 @@ class TicketsController extends Controller
             'id' => 57
         ];
   
-        Notification::send($user, new EmailNotification($project));
-        return "Notification";
+        try{
+            Notification::send($user, new EmailNotification($project));
+            return "Notification";
+        } catch (Exception $e){
+            return "No notification";
+        }
+        
     }
 }
