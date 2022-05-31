@@ -216,6 +216,8 @@ class TicketsController extends Controller
         $ticket = Ticket::find($id);
         $status = Status::find($ticket->id_status);
 
+        $ticket_tehnicians = 
+
         $ticket->delete();
 
         if ($status->status == "otvoren") return redirect('/otvoreni_ticketi');
