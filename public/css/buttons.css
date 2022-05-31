@@ -1,0 +1,32 @@
+.btn-pink-primary {
+    color: #fff;
+    background-color: #D77FA1;
+    border-color: #D77FA1
+}
+
+.btn-pink-primary.focus,
+.btn-pink-primary:focus {
+    box-shadow: 0 0 0 .2rem rgba(204, 89, 133, .5)
+}
+
+.btn-pink-secondary{
+    color: #fff;
+    background-color: #c3688b;
+    border-color: #c3688b;
+}
+
+.btn-pink-secondary.focus,
+.btn-pink-secondary:focus {
+    box-shadow: 0 0 0 .2rem rgba(204, 89, 133, .5)
+}
+
+.btn-pink-danger{
+    color: #fff;
+    background-color: #953d5f;
+    border-color: #953d5f;
+}
+
+.btn-pink-danger.focus,
+.btn-pink-danger:focus {
+    box-shadow: 0 0 0 .2rem rgba(131, 51, 82, 0.5)
+}

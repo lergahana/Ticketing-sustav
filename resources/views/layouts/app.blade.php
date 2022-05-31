@@ -17,7 +17,7 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
 
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased" data-theme="synthwave">
         <div class="min-h-screen bg-image">
             @if(Auth::user()->role == 'agent')
                 @include('layouts.agent.navigation')

@@ -25,7 +25,7 @@
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 bg-white border-b border-gray-200">
+            <div class="p-6 bg-white border-b border-gray-200" data-theme="retro">
 
                <button class="btn" id="ticket_btn" style="font-size:1.1vw;"><i class="fa fa-plus-circle" style="font-size:1.3vw; color:#D77FA1;"></i>&nbsp&nbsp Otvori ticket</button>
                

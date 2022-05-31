@@ -4,31 +4,6 @@
 	border-color: #007bff
 }
 
-.btn-pink {
-	background-color: #D77FA1;
-  	color: white;
-}
-
-
-.btn {
-	display: inline-block;
-	font-weight: 400;
-	color: #212529;
-	text-align: center;
-	vertical-align: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	background-color: transparent;
-	border: 1px solid transparent;
-	padding: .375rem .75rem;
-	font-size: 1rem;
-	line-height: 1.5;
-	border-radius: .25rem;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
-}
-
 .btn-primary:hover {
 	color: #fff;
 	background-color: #0069d9;
@@ -60,6 +35,63 @@
 .show>.btn-primary.dropdown-toggle:focus {
 	box-shadow: 0 0 0 .2rem rgba(38, 143, 255, .5)
 }s
+
+
+  
+.btn-pink-primary {
+	color: #fff;
+	background-color: #D77FA1;
+	border-color: #D77FA1
+}
+
+.btn-pink-primary.focus,
+.btn-pink-primary:focus {
+	box-shadow: 0 0 0 .2rem rgba(204, 89, 133, .5)
+}
+
+.btn-pink-secondary{
+	color: #fff;
+	background-color: #c3688b;
+	border-color: #c3688b;
+}
+
+.btn-pink-secondary.focus,
+.btn-pink-secondary:focus {
+	box-shadow: 0 0 0 .2rem rgba(204, 89, 133, .5)
+}
+
+.btn-pink-danger{
+	color: #fff;
+	background-color: #953d5f;
+	border-color: #953d5f;
+}
+
+.btn-pink-danger.focus,
+.btn-pink-danger:focus {
+	box-shadow: 0 0 0 .2rem rgba(131, 51, 82, 0.5)
+}
+
+
+.btn {
+	display: inline-block;
+	font-weight: 400;
+	color: #212529;
+	text-align: center;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+}
+
+
 
 table {
     border-collapse:collapse;

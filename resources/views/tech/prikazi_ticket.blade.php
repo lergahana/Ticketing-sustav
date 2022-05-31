@@ -2,13 +2,8 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         <link rel="stylesheet" href="{{ URL::asset('css/table.css') }}" />
-        <style>
-            .btn-pink {
-                background-color: #D77FA1;
-                color: white;
-                margin-right: 5px;
-                margin-bottom: 5px;
-            }    
+        <link rel="stylesheet" href="{{ URL::asset('css/buttons.css') }}" />
+        <style> 
             th {
                 width:20%;
             }
@@ -60,7 +55,7 @@
 
                 </table>
 
-                <a href="{{ url()->previous() }}"> <button class="btn btn-pink" style="float:right;">Povratak</button></a>
+                <a href="{{ url()->previous() }}"> <button class="btn btn-pink-primary" style="float:right; margin-right: 5px; margin-bottom: 5px;">Povratak</button></a>
             </div>
         </div>
     </div>

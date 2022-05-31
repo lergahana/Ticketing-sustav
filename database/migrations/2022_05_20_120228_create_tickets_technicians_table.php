@@ -15,9 +15,9 @@ class CreateTicketsTechniciansTable extends Migration
     {
         Schema::create('tickets_technicians', function (Blueprint $table) {
             $table->unsignedBigInteger('id_ticket');
-            $table->foreign('id_ticket')->references('id')->on('tickets')->onDelete('cascade');;
+            $table->foreign('id_ticket')->references('id')->on('tickets')->onDelete('cascade');
             $table->unsignedBigInteger('id_technician');
-            $table->foreign('id_technician')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreign('id_technician')->references('id')->on('users');
             $table->timestamps();
         });
     }
