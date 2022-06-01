@@ -24,10 +24,10 @@ class TechniciansController extends Controller
 
         $tickets_id = DB::table('tickets_technicians')->where('id_technician', $id_user)->get()->pluck('id_ticket')->toArray();
 
-        $tickets = Ticket::whereIn('id', $tickets_id)->get();
+        $all = Ticket::whereIn('id', $tickets_id)->paginate(5)->fragment('tickets');
 
         return view('tech.lista_ticketa', [
-            'tickets' => $tickets
+            'tickets' => $all
         ]);
     }
 

@@ -16,6 +16,7 @@ use App\Notifications\EmailNotification;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Pagination;
 
 use Illuminate\Support\Facades\DB;
 
@@ -33,7 +34,7 @@ class TicketsController extends Controller
         
         $all = DB::table('tickets')->where(
             'id_user', $id_user)->where(
-                'id_status', 1)->get();
+                'id_status', 1)->paginate(5)->fragment('tickets');
 
         return view('agent/otvoreni_ticketi', [
             'tickets' => $all
@@ -51,7 +52,7 @@ class TicketsController extends Controller
         
         $all = DB::table('tickets')->where(
             'id_user', $id_user)->where(
-                'id_status', 4)->get();
+                'id_status', 4)->paginate(5)->fragment('tickets');
         
         return view('agent/zatvoreni_ticketi', [
             'tickets' => $all
@@ -69,7 +70,7 @@ class TicketsController extends Controller
         
         $all = DB::table('tickets')->where(
             'id_user', $id_user)->where(
-                'id_status', 3)->get();
+                'id_status', 3)->paginate(5)->fragment('tickets');
 
         return view('agent/zaduzeni_ticketi', [
             'tickets' => $all
