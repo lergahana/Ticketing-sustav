@@ -9,6 +9,7 @@ use App\Models\TicketTechnician;
 use App\Models\Client;
 use App\Models\Status;
 use App\Models\User;
+use App\Models\SolvedTicket;
 
 use Notification;
 use Exception;
@@ -35,9 +36,13 @@ class TicketsController extends Controller
         $all = DB::table('tickets')->where(
             'id_user', $id_user)->where(
                 'id_status', 1)->paginate(5)->fragment('tickets');
+        $id_tickets = DB::table('tickets')->where('id_user', $id_user)->where('id_status', 1)->get()->pluck('id')->toArray();
+
+        $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
 
         return view('agent/otvoreni_ticketi', [
-            'tickets' => $all
+            'tickets' => $all,
+            'solved' => $solved,
         ]);
     }
 
@@ -54,8 +59,13 @@ class TicketsController extends Controller
             'id_user', $id_user)->where(
                 'id_status', 4)->paginate(5)->fragment('tickets');
         
+        $id_tickets = DB::table('tickets')->where('id_user', $id_user)->where('id_status', 4)->get()->pluck('id')->toArray();
+
+        $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
+        
         return view('agent/zatvoreni_ticketi', [
-            'tickets' => $all
+            'tickets' => $all,
+            'solved' => $solved,
         ]);
     }
 
@@ -70,16 +80,20 @@ class TicketsController extends Controller
         
         $all = DB::table('tickets')->where(
             'id_user', $id_user)->where(
-                'id_status', 3)->paginate(5)->fragment('tickets');
+                'id_status', 3)->sortable()->paginate(5)->fragment('tickets');
+
+        $id_tickets = DB::table('tickets')->where('id_user', $id_user)->where('id_status', 3)->get()->pluck('id')->toArray();
+
+        $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
 
         return view('agent/zaduzeni_ticketi', [
-            'tickets' => $all
+            'tickets' => $all,
+            'solved' => $solved,
         ]);
     }
 
     public function forma_novi(){
         $all_tech = User::where('role', 'technician')->get();
-        /*$all_tech = DB::table('technicians')->get();*/
         $all_clients = DB::table('clients')->get();
 
         return view('agent.novi_ticket', [
@@ -217,8 +231,6 @@ class TicketsController extends Controller
     {
         $ticket = Ticket::find($id);
         $status = Status::find($ticket->id_status);
-
-        $ticket_tehnicians = 
 
         $ticket->delete();
 

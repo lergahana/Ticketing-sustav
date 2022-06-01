@@ -78,7 +78,7 @@
                            <button type="button" class="btn" style="font-size:1.1vw; display: inline-block;" onclick="add_technician()"><i class="fa fa-plus-circle" style="font-size:1.3vw; color:#D77FA1;"></i></button>
                         </div>
                         <div style="float:right; margin-top:-5%; margin-right:12%">
-                           <button type="button" class="btn" style="font-size:1.1vw; display: inline-block;" onclick="rem_technician()"><i class="fa fa-minus-circle" style="font-size:1.3vw; color:#BAABDA;"></i></button>
+                           <button type="button" class="btn" style="font-size:1.1vw; display: inline-block;" onclick="rem_technician()"><i class="fa fa-minus-circle" style="font-size:1.3vw; color:#7a5db7;"></i></button>
                         </div>
                         
                         <div id="more_technicians"></div>

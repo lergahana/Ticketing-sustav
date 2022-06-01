@@ -2,6 +2,7 @@
    <x-slot name="header">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
          <link rel="stylesheet" href="css/form.css">
+         <link rel="stylesheet" href="{{ URL::asset('css/buttons.css') }}">
 
          {{ __('Novi klijent') }}
       </h2>
@@ -20,7 +21,6 @@
                      </div>
                      
                      <button type="submit" class="btn btn-primary" style="float:right; background-color: #D77FA1; border-color: #D77FA1; margin-top:1%;">Spremi klijenta</button>
-                     <!--<input class="btn btn-primary" type="reset" style="float:left; background-color: #D77FA1; border-color: #D77FA1; margin-top:1%;" value="Reset">-->
                   </form>
                </div>
             </div>

@@ -2,17 +2,13 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         <link rel="stylesheet" href="{{ URL::asset('css/table.css') }}" />
+        <link rel="stylesheet" href="{{ URL::asset('css/buttons.css') }}">
         {{ $ticket->name }}
         <!--Drop down search-->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
         <style>
-            .btn-pink {
-                background-color: #D77FA1;
-                color: white;
-                margin-right: 5px;
-            }    
             th {
                 width:15%;
             }
@@ -111,13 +107,13 @@
                             <button type="button" class="btn" style="font-size:1.1vw; display: inline-block;" onclick="add_technician()"><i class="fa fa-plus-circle" style="font-size:1.3vw; color:#D77FA1;"></i></button>
                         </div>
                         <div style="float:right; margin-top:-4%; margin-right:12%">
-                            <button type="button" class="btn" style="font-size:1.1vw; display: inline-block;" onclick="rem_technician()"><i class="fa fa-minus-circle" style="font-size:1.3vw; color:#BAABDA;"></i></button>
+                            <button type="button" class="btn" style="font-size:1.1vw; display: inline-block;" onclick="rem_technician()"><i class="fa fa-minus-circle" style="font-size:1.3vw; color:#7a5db7;"></i></button>
                         </div>
                         <div id="more_technicians"></div>
                         </td>
                     </tr>
                 </table>
-                <button type="submit" class="btn btn-pink" style="float:right;">Spremi promjene</button></form>
+                <button type="submit" class="btn btn-pink-primary" style="float:right; margin-right:7px;">Spremi promjene</button></form>
             </div>
         </div>
     </div>

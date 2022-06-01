@@ -43,7 +43,7 @@ Route::group(['middleware' => 'agent'], function () {
 Route::group(['middleware' => 'technician'], function () {
     Route::middleware(['auth:sanctum', 'verified'])->get('/lista_ticketa', 'App\Http\Controllers\TechniciansController@index_tickets')->name('lista_ticketa');
     Route::middleware(['auth:sanctum', 'verified'])->get('tech/prikazi_ticket/{id}', 'App\Http\Controllers\TechniciansController@show_tickets');
-    /*Route::middleware(['auth:sanctum', 'verified'])->get('/uredi_ticket/{id}', 'App\Http\Controllers\TicketsController@edit');*/
+    Route::middleware(['auth:sanctum', 'verified'])->get('tech/zatvori_ticket/{id}', 'App\Http\Controllers\TechniciansController@solve');
 });
 
 

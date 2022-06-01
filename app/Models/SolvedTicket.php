@@ -7,13 +7,11 @@ use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ticket extends Model
+class SolvedTicket extends Model
 {
+    use HasFactory;
+
     use Sortable;
 
-    public $sortable = ['name',
-                        'id_client'
-                        ];
-
-    use HasFactory;
+    public $sortable = ['id_ticket'];
 }

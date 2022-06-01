@@ -11,13 +11,13 @@
 
 .btn-pink-secondary{
     color: #fff;
-    background-color: #c3688b;
-    border-color: #c3688b;
+    background-color: #7a5db7;
+    border-color: #7a5db7;
 }
 
 .btn-pink-secondary.focus,
 .btn-pink-secondary:focus {
-    box-shadow: 0 0 0 .2rem rgba(204, 89, 133, .5)
+    box-shadow: 0 0 0 .2rem rgba(129, 89, 204, 0.5)
 }
 
 .btn-pink-danger{

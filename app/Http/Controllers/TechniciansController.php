@@ -9,6 +9,7 @@ use App\Models\TicketTechnician;
 use App\Models\Client;
 use App\Models\User;
 use App\Models\Status;
+use App\Models\SolvedTicket;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,10 +25,13 @@ class TechniciansController extends Controller
 
         $tickets_id = DB::table('tickets_technicians')->where('id_technician', $id_user)->get()->pluck('id_ticket')->toArray();
 
-        $all = Ticket::whereIn('id', $tickets_id)->paginate(5)->fragment('tickets');
+        $all = Ticket::whereIn('id', $tickets_id)->where('id_status', 3)->paginate(5)->fragment('tickets');
+
+        $solved = SolvedTicket::whereIn('id_ticket', $tickets_id)->get()->pluck('id_ticket')->toArray();
 
         return view('tech.lista_ticketa', [
-            'tickets' => $all
+            'tickets' => $all,
+            'solved' => $solved,
         ]);
     }
 
@@ -55,6 +59,19 @@ class TechniciansController extends Controller
             'agent' => $agent[0],
             'num_techs' => $i,
         ]);
+
+    }
+
+    public function solve($id)
+    {
+        $ticket = Ticket::where('id', $id)->get();
+
+        $solved = new SolvedTicket();
+        $solved->id_ticket = $id;
+        $solved->solved = 1;
+        $solved->save();
+        
+        return $this->index_tickets();
 
     }
 
