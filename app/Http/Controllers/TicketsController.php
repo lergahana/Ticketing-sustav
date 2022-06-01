@@ -15,6 +15,8 @@ use Notification;
 use Exception;
 use App\Notifications\EmailNotification;
 
+use Kyslik\ColumnSortable\Sortable;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Pagination;
@@ -33,9 +35,8 @@ class TicketsController extends Controller
     {
         $id_user = Auth::id();
         
-        $all = DB::table('tickets')->where(
-            'id_user', $id_user)->where(
-                'id_status', 1)->paginate(5)->fragment('tickets');
+        $all = Ticket::where('id_user', $id_user)->where('id_status', 1)->sortable()->paginate(5)->fragment('tickets');
+
         $id_tickets = DB::table('tickets')->where('id_user', $id_user)->where('id_status', 1)->get()->pluck('id')->toArray();
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
@@ -55,9 +56,7 @@ class TicketsController extends Controller
     {
         $id_user = Auth::id();
         
-        $all = DB::table('tickets')->where(
-            'id_user', $id_user)->where(
-                'id_status', 4)->paginate(5)->fragment('tickets');
+        $all = Ticket::where('id_user', $id_user)->where('id_status', 4)->sortable()->paginate(5)->fragment('tickets');
         
         $id_tickets = DB::table('tickets')->where('id_user', $id_user)->where('id_status', 4)->get()->pluck('id')->toArray();
 
@@ -78,16 +77,19 @@ class TicketsController extends Controller
     {
         $id_user = Auth::id();
         
-        $all = DB::table('tickets')->where(
-            'id_user', $id_user)->where(
-                'id_status', 3)->sortable()->paginate(5)->fragment('tickets');
+        $all = Ticket::where('id_user', $id_user)->where('id_status', 3)->sortable()->paginate(5)->fragment('tickets');
 
         $id_tickets = DB::table('tickets')->where('id_user', $id_user)->where('id_status', 3)->get()->pluck('id')->toArray();
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
 
+        $priority = Ticket::where('id_user', $id_user)->where('id_status', 3)
+        ->leftJoin('solved_tickets', 'tickets.id', '=', 'solved_tickets.id_ticket')
+        ->orderBy('solved_tickets.solved', 'desc')->select('tickets.*')->sortable()->paginate(5)->fragment('tickets');
+
         return view('agent/zaduzeni_ticketi', [
             'tickets' => $all,
+            'sort' => $priority,
             'solved' => $solved,
         ]);
     }

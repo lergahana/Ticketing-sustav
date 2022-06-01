@@ -12,6 +12,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" data-theme="pastel">
                 <div class="p-6 bg-white border-b border-gray-200">
                     {{ $tickets->links() }}
+                    <div style="float:right;">
+                        <th>@sortablelink('name', 'Naziv')</th>
+                        <th>@sortablelink('created_at', 'Vrijeme')</th>
+                    </div>
                 </div>
 
                 @forelse ($tickets as $ticket)

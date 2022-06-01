@@ -3,13 +3,17 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" data-theme="pastel">
             <div class="p-6 bg-white border-b border-gray-200">
                 {{ $tickets->links() }}
-                <table>
-                    <thead>
-                        <th>@sortablelink('tickets.name', 'Naziv')</th>
-                        <th>Actions</th>
-                    </thead>
-                </table>
+                <div style="float:right;">
+                    <th>@sortablelink('name', 'Naziv')</th>
+                    <th>@sortablelink('created_at', 'Vrijeme')</th>
+                </div>
             </div>
+
+            @isset($sort)
+                @php
+                    $tickets = $sort
+                @endphp
+            @endisset
 
             @forelse ($tickets as $ticket)
                 <div class="p-6 bg-white border-b border-gray-200">

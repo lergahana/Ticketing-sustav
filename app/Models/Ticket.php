@@ -12,7 +12,7 @@ class Ticket extends Model
     use Sortable;
 
     public $sortable = ['name',
-                        'id_client'
+                        'created_at',
                         ];
 
     use HasFactory;

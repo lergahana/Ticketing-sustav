@@ -25,12 +25,16 @@ class TechniciansController extends Controller
 
         $tickets_id = DB::table('tickets_technicians')->where('id_technician', $id_user)->get()->pluck('id_ticket')->toArray();
 
-        $all = Ticket::whereIn('id', $tickets_id)->where('id_status', 3)->paginate(5)->fragment('tickets');
+        /*$all = Ticket::whereIn('id', $tickets_id)->where('id_status', 3)->sortable()->paginate(5)->fragment('tickets');*/
 
         $solved = SolvedTicket::whereIn('id_ticket', $tickets_id)->get()->pluck('id_ticket')->toArray();
 
+        $priority = Ticket::whereIn('id', $tickets_id)->where('id_status', 3)
+        ->leftJoin('solved_tickets', 'tickets.id', '=', 'solved_tickets.id_ticket')
+        ->orderBy('solved_tickets.solved', 'asc')->select('tickets.*')->sortable()->paginate(5)->fragment('tickets');
+
         return view('tech.lista_ticketa', [
-            'tickets' => $all,
+            'tickets' => $priority,
             'solved' => $solved,
         ]);
     }
