@@ -3,6 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         <link rel="stylesheet" href="{{ URL::asset('css/form.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/buttons.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         {{ __('Ticketi') }}
         </h2>
     </x-slot>
@@ -10,12 +11,15 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" data-theme="pastel">
-                <div class="p-6 bg-white border-b border-gray-200">
+                @php
+                    if ($num_tickets > 0){
+                        $visibility = "";
+                    } else {
+                        $visibility = "hidden";
+                    }
+                @endphp
+                <div class="p-6 bg-white border-b border-gray-200" {{ $visibility }}>
                     {{ $tickets->links() }}
-                    <div style="float:right;">
-                        <th>@sortablelink('name', 'Naziv')</th>
-                        <th>@sortablelink('created_at', 'Vrijeme')</th>
-                    </div>
                 </div>
 
                 @forelse ($tickets as $ticket)
@@ -41,6 +45,14 @@
                         Trenutno nema ticketa.
                     </div>
                 @endforelse
+
+                <div class="bg-white border-b border-gray-200" {{ $visibility }}>
+                    <div style="align:middle; float:right; margin-right: 15px;">
+                        Sortiranje:&nbsp
+                        <th>@sortablelink('name', 'Naziv') / </th>
+                        <th>@sortablelink('created_at', 'Vrijeme')</th>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

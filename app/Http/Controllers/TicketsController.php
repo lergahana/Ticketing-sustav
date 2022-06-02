@@ -43,6 +43,7 @@ class TicketsController extends Controller
 
         return view('agent/otvoreni_ticketi', [
             'tickets' => $all,
+            'num_tickets' => $all->count(),
             'solved' => $solved,
         ]);
     }
@@ -64,6 +65,7 @@ class TicketsController extends Controller
         
         return view('agent/zatvoreni_ticketi', [
             'tickets' => $all,
+            'num_tickets' => $all->count(),
             'solved' => $solved,
         ]);
     }
@@ -90,6 +92,7 @@ class TicketsController extends Controller
         return view('agent/zaduzeni_ticketi', [
             'tickets' => $all,
             'sort' => $priority,
+            'num_tickets' => $all->count(),
             'solved' => $solved,
         ]);
     }

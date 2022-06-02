@@ -35,6 +35,7 @@ class TechniciansController extends Controller
 
         return view('tech.lista_ticketa', [
             'tickets' => $priority,
+            'num_tickets' => $priority->count(),
             'solved' => $solved,
         ]);
     }
@@ -70,10 +71,14 @@ class TechniciansController extends Controller
     {
         $ticket = Ticket::where('id', $id)->get();
 
-        $solved = new SolvedTicket();
-        $solved->id_ticket = $id;
-        $solved->solved = 1;
-        $solved->save();
+        $exists = SolvedTicket::where('id_ticket', $id)->get();
+
+        if ($exists->count() <= 0){
+            $solved = new SolvedTicket();
+            $solved->id_ticket = $id;
+            $solved->solved = 1;
+            $solved->save();
+        }
         
         return $this->index_tickets();
 

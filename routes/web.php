@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\FactsController@data');
 
-Route::get('/dashboard', 'App\Http\Controllers\HomeController@home')->name('dashboard');;
+Route::get('/dashboard', 'App\Http\Controllers\HomeController@home')->name('dashboard');
 
-Route::get('/home', 'App\Http\Controllers\HomeController@home')->name('home');;
+Route::get('/home', 'App\Http\Controllers\HomeController@home')->name('home');
 
 Route::group(['middleware' => 'agent'], function () {
     Route::middleware(['auth:sanctum', 'verified'])->get('/send_email', '\App\Http\Controllers\EmailController@send')->name('send_email');

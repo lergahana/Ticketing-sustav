@@ -1,12 +1,15 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" data-theme="pastel">
-            <div class="p-6 bg-white border-b border-gray-200">
+            @php
+                if ($num_tickets > 0){
+                    $visibility = "";
+                } else {
+                    $visibility = "hidden";
+                }
+            @endphp
+            <div class="p-6 bg-white border-b border-gray-200" {{ $visibility }}>
                 {{ $tickets->links() }}
-                <div style="float:right;">
-                    <th>@sortablelink('name', 'Naziv')</th>
-                    <th>@sortablelink('created_at', 'Vrijeme')</th>
-                </div>
             </div>
 
             @isset($sort)
@@ -32,6 +35,14 @@
                     Trenutno nema ticketa.
                 </div>
             @endforelse
+
+            <div class="bg-white border-b border-gray-200" {{ $visibility }}>
+                <div style="align:middle; float:right; margin-right: 20px;">
+                    Sortiranje:&nbsp
+                    <th>@sortablelink('name', 'Naziv') / </th>
+                    <th>@sortablelink('created_at', 'Vrijeme')</th>
+                </div>
+            </div>
         </div>
     </div>
 </div>
