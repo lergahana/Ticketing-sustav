@@ -65,10 +65,13 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        'users' => [
-            'driver' => 'database',
-            'table' => 'users',
-        ],
+        // ERROR
+        // Call to undefined method Illuminate\Auth\GenericUser::patients()
+
+        // 'users' => [
+                //'driver' => 'database',
+                //'table' => 'users',
+        // ],
     ],
 
     /*

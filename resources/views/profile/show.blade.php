@@ -1,45 +1,32 @@
 <x-app-layout>
     <x-slot name="header">
+        <link rel="stylesheet" href="{{ URL::asset('css/form.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/buttons.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
+            {{ __('Profil') }}
         </h2>
     </x-slot>
 
-    <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            @if (Laravel\Fortify\Features::canUpdateProfileInformation())
-                @livewire('profile.update-profile-information-form')
-
-                <x-jet-section-border />
-            @endif
-
-            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.update-password-form')
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" data-theme="pastel">
+                
+                <div class="p-6 bg-white border-b border-gray-200">
+                    @include('profile.update-profile-information-form', ['role' => $role, 'user' => $user, 'no' => $no])
                 </div>
 
-                <x-jet-section-border />
-            @endif
+                <div class="p-6 bg-white border-b border-gray-200" data-theme="pastel">
+                    @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
+                        <div class="mt-10 sm:mt-0">
+                            @livewire('profile.update-password-form')
+                        </div>
 
-            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.two-factor-authentication-form')
+                        <x-jet-section-border />
+                    @endif
                 </div>
 
-                <x-jet-section-border />
-            @endif
-
-            <div class="mt-10 sm:mt-0">
-                @livewire('profile.logout-other-browser-sessions-form')
             </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
-                <x-jet-section-border />
-
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.delete-user-form')
-                </div>
-            @endif
         </div>
     </div>
 </x-app-layout>

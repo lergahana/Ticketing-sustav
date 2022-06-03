@@ -47,6 +47,4 @@ Route::group(['middleware' => 'technician'], function () {
 });
 
 
-
-
 require __DIR__.'/auth.php';

@@ -10,6 +10,7 @@ use App\Models\Client;
 use App\Models\Status;
 use App\Models\User;
 use App\Models\SolvedTicket;
+use App\Models\UserNotificationPreference;
 
 use Notification;
 use Exception;
@@ -197,15 +198,21 @@ class TicketsController extends Controller
         $ticket->id_user = $id_user;
 
         $ticket->description = $request->opis;
+
+        
+
         if($request->tech){
             $old_relation = TicketTechnician::where('id_ticket', $id)->delete();
             foreach ($request->tech as $tech){
                 $technician = User::where('id', $tech)->get()->pluck('id')->toArray();
+                $notification = UserNotificationPreference::where('id_user', $tech)->get();
                 $relation = new TicketTechnician();
                 $relation->id_ticket = $ticket->id;
                 $relation->id_technician = $technician[0];
                 $relation->save();
-                $sending = $this->send($tech, $agent, $request->status);
+                if($notification->count() <= 0){
+                    $sending = $this->send($tech, $agent, $request->status);
+                }
             }
         }
 
@@ -283,11 +290,14 @@ class TicketsController extends Controller
         if($request->tech){        
             foreach ($request->tech as $tech){
                 $technician = User::where('id', $tech)->get()->pluck('id')->toArray();
+                $notification = UserNotificationPreference::where('id_user', $tech)->get();
                 $relation = new TicketTechnician();
                 $relation->id_ticket = $ticket->id;
                 $relation->id_technician = $technician[0];
                 $relation->save();
-                $sending = $this->send($tech, $agent, $request->status);
+                if($notification->count() <= 0){
+                    $sending = $this->send($tech, $agent, $request->status);
+                }
             }
         }
 
