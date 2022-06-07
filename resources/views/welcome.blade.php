@@ -40,7 +40,7 @@
             @endif
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 justify-center">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
+                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0" style="width:400px;">
                     <img src="{{ asset('images/logo-transparent.png') }}" class="img-fluid" alt="Ticketing sustav" height="100">
                 </div>
                 </br></br>

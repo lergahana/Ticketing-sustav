@@ -11,7 +11,7 @@ class FactsController extends Controller
 
         $response = Http::get('https://uselessfacts.jsph.pl/random.json?language=en');
 
-        $response =json_decode($response);
+        $response = json_decode($response);
 
         if (isset($response->text)){
             $key_value = $response->text;
