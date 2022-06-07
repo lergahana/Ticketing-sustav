@@ -27,6 +27,7 @@ Route::group(['middleware' => 'agent'], function () {
 
     Route::middleware(['auth:sanctum', 'verified'])->get('/otvoreni_ticketi', 'App\Http\Controllers\TicketsController@otvoreni_index')->name('otvoreni_ticketi');
     Route::middleware(['auth:sanctum', 'verified'])->get('/zaduzeni_ticketi', 'App\Http\Controllers\TicketsController@zaduzeni_index')->name('zaduzeni_ticketi');
+    Route::middleware(['auth:sanctum', 'verified'])->get('/zaduzeni_ticketi_sort', 'App\Http\Controllers\TicketsController@zaduzeni_index_sort')->name('zaduzeni_ticketi_sort');
     Route::middleware(['auth:sanctum', 'verified'])->get('/zatvoreni_ticketi', 'App\Http\Controllers\TicketsController@zatvoreni_index')->name('zatvoreni_ticketi');
     
     Route::middleware(['auth:sanctum', 'verified'])->get('/prikazi_ticket/{id}', 'App\Http\Controllers\TicketsController@show');

@@ -13,5 +13,6 @@ class SolvedTicket extends Model
 
     use Sortable;
 
-    public $sortable = ['id_ticket'];
+    public $sortable = ['id_ticket', 'solved'];
+
 }

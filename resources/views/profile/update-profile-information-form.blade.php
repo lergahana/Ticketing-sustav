@@ -13,19 +13,24 @@
             <link rel="stylesheet" href="{{ URL::asset('css/table.css') }}">
             <link rel="stylesheet" href="{{ URL::asset('css/buttons.css') }}">
             <link rel="stylesheet" href="{{ URL::asset('css/toggle.css') }}">
+            <style>
+                tr {
+                    border-style: hidden;
+                }
+            </style>
 
-            <table class="table table-hover">
+            <table class="table table-hover" style="margin-top:20px;">
                 <tr>
                     <th scope="row" style="width:20%;"><label for="naziv">Ime: </label></th>
                     <td><input type="text" id="naziv" name="name" class="form-control" value="{{ $user->name }}"></td>
                 </tr>
-                <tr style="border-style:hidden;">
+                <tr>
                     <th scope="row" style="width:20%;"><label for="email">Email: </label></th>
                     <td><input type="text"  name="email" class="form-control" value="{{ $user->email }}"> </td>
                 </tr>
 
                 @if($role == 'technician')
-                <tr style="border-style:hidden;">
+                <tr>
                     <th scope="row" style="width:20%;"><label for="notifikacije">Email notifikacije: </label></th>
                     <td>
                         <label class="switch">

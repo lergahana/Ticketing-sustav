@@ -16,16 +16,10 @@
                     @include('profile.update-profile-information-form', ['role' => $role, 'user' => $user, 'no' => $no])
                 </div>
 
-                <div class="p-6 bg-white border-b border-gray-200" data-theme="pastel">
-                    @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
-                        <div class="mt-10 sm:mt-0">
-                            @livewire('profile.update-password-form')
-                        </div>
-
-                        <x-jet-section-border />
-                    @endif
+                <div class="p-6 bg-white border-b border-gray-200">
+                    @include('profile.update-password-form', ['role' => $role, 'user' => $user, 'no' => $no])
                 </div>
-
+            
             </div>
         </div>
     </div>

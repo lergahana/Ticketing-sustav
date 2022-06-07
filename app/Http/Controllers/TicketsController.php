@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Models\User;
 use App\Models\SolvedTicket;
 use App\Models\UserNotificationPreference;
+use App\Models\Interaction;
 
 use Notification;
 use Exception;
@@ -35,10 +36,15 @@ class TicketsController extends Controller
     public function otvoreni_index()
     {
         $id_user = Auth::id();
-        
-        $all = Ticket::where('id_user', $id_user)->where('id_status', 1)->sortable()->paginate(5)->fragment('tickets');
 
-        $id_tickets = DB::table('tickets')->where('id_user', $id_user)->where('id_status', 1)->get()->pluck('id')->toArray();
+        $id_tickets = DB::table('tickets')
+                    ->join('status', 'tickets.id_status', '=', 'status.id')
+                    ->select('tickets.*', 'status.status')
+                    ->where('status', 'otvoren')
+                    ->where('id_user', $id_user)
+                    ->get()->pluck('id')->toArray();
+        
+        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
 
@@ -46,6 +52,7 @@ class TicketsController extends Controller
             'tickets' => $all,
             'num_tickets' => $all->count(),
             'solved' => $solved,
+            'sort' => '',
         ]);
     }
 
@@ -57,10 +64,15 @@ class TicketsController extends Controller
     public function zatvoreni_index()
     {
         $id_user = Auth::id();
+
+        $id_tickets = DB::table('tickets')
+                    ->join('status', 'tickets.id_status', '=', 'status.id')
+                    ->select('tickets.*', 'status.status')
+                    ->where('status', 'zatvoren')
+                    ->where('id_user', $id_user)
+                    ->get()->pluck('id')->toArray();
         
-        $all = Ticket::where('id_user', $id_user)->where('id_status', 4)->sortable()->paginate(5)->fragment('tickets');
-        
-        $id_tickets = DB::table('tickets')->where('id_user', $id_user)->where('id_status', 4)->get()->pluck('id')->toArray();
+        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
         
@@ -68,6 +80,7 @@ class TicketsController extends Controller
             'tickets' => $all,
             'num_tickets' => $all->count(),
             'solved' => $solved,
+            'sort' => '',
         ]);
     }
 
@@ -79,16 +92,54 @@ class TicketsController extends Controller
     public function zaduzeni_index()
     {
         $id_user = Auth::id();
-        
-        $all = Ticket::where('id_user', $id_user)->where('id_status', 3)->sortable()->paginate(5)->fragment('tickets');
 
-        $id_tickets = DB::table('tickets')->where('id_user', $id_user)->where('id_status', 3)->get()->pluck('id')->toArray();
+        $id_tickets = DB::table('tickets')
+                    ->join('status', 'tickets.id_status', '=', 'status.id')
+                    ->select('tickets.*', 'status.status')
+                    ->where('status', 'zadužen')
+                    ->where('id_user', $id_user)
+                    ->get()->pluck('id')->toArray();
+        
+        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
+        
+        $priority = Ticket::where('id_user', $id_user)
+                    ->join('status', 'tickets.id_status', '=', 'status.id')
+                    ->where('status', 'zadužen')
+                    ->leftJoin('solved_tickets', 'tickets.id', '=', 'solved_tickets.id_ticket')
+                    ->orderBy('solved_tickets.solved', 'desc')->select('tickets.*')
+                    ->sortable()->paginate(5)->fragment('tickets');
 
-        $priority = Ticket::where('id_user', $id_user)->where('id_status', 3)
-        ->leftJoin('solved_tickets', 'tickets.id', '=', 'solved_tickets.id_ticket')
-        ->orderBy('solved_tickets.solved', 'desc')->select('tickets.*')->sortable()->paginate(5)->fragment('tickets');
+        return view('agent/zaduzeni_ticketi', [
+            'tickets' => $all,
+            'sort' => 'da',
+            'num_tickets' => $all->count(),
+            'solved' => $solved,
+        ]);
+    }
+
+    public function zaduzeni_index_sort()
+    {
+        $id_user = Auth::id();
+
+        $id_tickets = DB::table('tickets')
+                    ->join('status', 'tickets.id_status', '=', 'status.id')
+                    ->select('tickets.*', 'status.status')
+                    ->where('status', 'zadužen')
+                    ->where('id_user', $id_user)
+                    ->get()->pluck('id')->toArray();
+        
+        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
+
+        $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
+        
+        $priority = Ticket::where('id_user', $id_user)
+                    ->join('status', 'tickets.id_status', '=', 'status.id')
+                    ->where('status', 'zadužen')
+                    ->leftJoin('solved_tickets', 'tickets.id', '=', 'solved_tickets.id_ticket')
+                    ->orderBy('solved_tickets.solved', 'desc')->select('tickets.*')
+                    ->sortable()->paginate(5)->fragment('tickets');
 
         return view('agent/zaduzeni_ticketi', [
             'tickets' => $all,
@@ -221,6 +272,9 @@ class TicketsController extends Controller
         }
 
         $status = Status::where('status', $request->status)->get()->pluck('id')->toArray();
+
+        $solved = SolvedTicket::where('id_ticket', $id)->delete();
+        
         if($request->tech == null && $request->status != 'zatvoren'){
             $old_relation = TicketTechnician::where('id_ticket', $id)->delete();
             $status = Status::where('status', 'otvoren')->get()->pluck('id')->toArray();
