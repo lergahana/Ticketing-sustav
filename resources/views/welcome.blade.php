@@ -44,8 +44,8 @@
                     <img src="{{ asset('images/logo-transparent.png') }}" class="img-fluid" alt="Ticketing sustav" height="100">
                 </div>
                 </br></br>
-                <div class="text-center text-sm text-gray-500 sm:text-left">
-                    Did you know? {{ $facts }}
+                <div class="text-center text-sm text-gray-500 sm:text-left" style="max-width:400px;">
+                    Did you know? </br> {{ $facts }}
                 </div>
             </div>
         </div>
