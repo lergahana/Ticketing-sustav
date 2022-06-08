@@ -45,12 +45,13 @@ class TicketsController extends Controller
                     ->get()->pluck('id')->toArray();
         
         $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
+        $count = Ticket::whereIn('id', $id_tickets)->get();
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
 
         return view('agent/otvoreni_ticketi', [
             'tickets' => $all,
-            'num_tickets' => $all->count(),
+            'num_tickets' => $count->count(),
             'solved' => $solved,
             'sort' => '',
         ]);
@@ -73,12 +74,13 @@ class TicketsController extends Controller
                     ->get()->pluck('id')->toArray();
         
         $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
+        $count = Ticket::whereIn('id', $id_tickets)->get();
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
         
         return view('agent/zatvoreni_ticketi', [
             'tickets' => $all,
-            'num_tickets' => $all->count(),
+            'num_tickets' => $count->count(),
             'solved' => $solved,
             'sort' => '',
         ]);
@@ -101,6 +103,7 @@ class TicketsController extends Controller
                     ->get()->pluck('id')->toArray();
         
         $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
+        $count = Ticket::whereIn('id', $id_tickets)->get();
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
         
@@ -114,7 +117,7 @@ class TicketsController extends Controller
         return view('agent/zaduzeni_ticketi', [
             'tickets' => $all,
             'sort' => 'da',
-            'num_tickets' => $all->count(),
+            'num_tickets' => $count->count(),
             'solved' => $solved,
         ]);
     }
@@ -131,6 +134,7 @@ class TicketsController extends Controller
                     ->get()->pluck('id')->toArray();
         
         $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
+        $count = Ticket::whereIn('id', $id_tickets)->get();
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
         
@@ -144,7 +148,7 @@ class TicketsController extends Controller
         return view('agent/zaduzeni_ticketi', [
             'tickets' => $all,
             'sort' => $priority,
-            'num_tickets' => $all->count(),
+            'num_tickets' => $count->count(),
             'solved' => $solved,
         ]);
     }

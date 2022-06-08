@@ -17,7 +17,7 @@ class TicketSeeder extends Seeder
     {
         #Kreira 100 otvorenih ticket-a povezanih s klijentima i agentima
         Ticket::factory()
-        ->count(100)
+        ->count(150)
         ->create();
     }
 }
