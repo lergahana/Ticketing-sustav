@@ -25,7 +25,7 @@
                     <td><input type="text" id="naziv" name="name" class="form-control" value="{{ $user->name }}"></td>
                 </tr>
                 <tr>
-                    <th scope="row" style="width:20%;"><label for="email">Email: </label></th>
+                    <th scope="row" style="width:20%;"><label for="email">E-mail: </label></th>
                     <td><input type="text"  name="email" class="form-control" value="{{ $user->email }}"> </td>
                 </tr>
 

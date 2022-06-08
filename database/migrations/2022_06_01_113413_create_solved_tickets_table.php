@@ -28,6 +28,8 @@ class CreateSolvedTicketsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('solved_tickets');
+        Schema::enableForeignKeyConstraints();
     }
 }

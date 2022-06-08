@@ -29,6 +29,9 @@ class CreateTicketsTechniciansTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('tickets_technicians');
+        Schema::enableForeignKeyConstraints();
+        
     }
 }

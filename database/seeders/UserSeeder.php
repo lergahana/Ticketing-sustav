@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Str;
+use Hash;
 
 class UserSeeder extends Seeder
 {
@@ -14,8 +16,24 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        User::create([
+            'name' => 'Agent Default',
+            'email' => 'agent.default@mail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('useruser'),
+            'role' => 'agent',
+            'remember_token' => Str::random(10),
+        ]);
+        User::create([
+            'name' => 'Techinician Default',
+            'email' => 'ticketing.sustav@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('useruser'),
+            'role' => 'technician',
+            'remember_token' => Str::random(10),
+        ]);
         User::factory()
-        ->count(20)
+        ->count(18)
         ->create();
     }
 }

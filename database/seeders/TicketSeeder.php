@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Ticket;
+use App\Models\TicketTechnician;
 
 class TicketSeeder extends Seeder
 {
@@ -14,8 +15,9 @@ class TicketSeeder extends Seeder
      */
     public function run()
     {
+        #Kreira 100 otvorenih ticket-a povezanih s klijentima i agentima
         Ticket::factory()
-        ->count(30)
+        ->count(100)
         ->create();
     }
 }

@@ -27,6 +27,8 @@ class CreateStatusTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('status');
+        Schema::enableForeignKeyConstraints();
     }
 }
