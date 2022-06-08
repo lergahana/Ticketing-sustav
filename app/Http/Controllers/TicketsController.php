@@ -44,7 +44,7 @@ class TicketsController extends Controller
                     ->where('id_user', $id_user)
                     ->get()->pluck('id')->toArray();
         
-        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
+        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(6)->fragment('tickets');
         $count = Ticket::whereIn('id', $id_tickets)->get();
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
@@ -57,7 +57,7 @@ class TicketsController extends Controller
         ]);
     }
 
-            /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -73,7 +73,7 @@ class TicketsController extends Controller
                     ->where('id_user', $id_user)
                     ->get()->pluck('id')->toArray();
         
-        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
+        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(6)->fragment('tickets');
         $count = Ticket::whereIn('id', $id_tickets)->get();
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
@@ -102,7 +102,7 @@ class TicketsController extends Controller
                     ->where('id_user', $id_user)
                     ->get()->pluck('id')->toArray();
         
-        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
+        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(6)->fragment('tickets');
         $count = Ticket::whereIn('id', $id_tickets)->get();
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();
@@ -133,7 +133,7 @@ class TicketsController extends Controller
                     ->where('id_user', $id_user)
                     ->get()->pluck('id')->toArray();
         
-        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(5)->fragment('tickets');
+        $all = Ticket::whereIn('id', $id_tickets)->sortable()->paginate(6)->fragment('tickets');
         $count = Ticket::whereIn('id', $id_tickets)->get();
 
         $solved = SolvedTicket::whereIn('id_ticket', $id_tickets)->get()->pluck('id_ticket')->toArray();

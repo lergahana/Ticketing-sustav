@@ -29,10 +29,11 @@ class TechniciansController extends Controller
         $count = Ticket::whereIn('id', $tickets_id)->get();
 
         $solved = SolvedTicket::whereIn('id_ticket', $tickets_id)->get()->pluck('id_ticket')->toArray();
-
-        $priority = Ticket::whereIn('id', $tickets_id)->where('id_status', 3)
-        ->leftJoin('solved_tickets', 'tickets.id', '=', 'solved_tickets.id_ticket')
-        ->orderBy('solved_tickets.solved', 'asc')->select('tickets.*')->sortable()->paginate(5)->fragment('tickets');
+        $status = Status::where('status', 'zadužen')->pluck('id');
+        $priority = Ticket::whereIn('id', $tickets_id)->where('id_status', $status[0])
+                    ->leftJoin('solved_tickets', 'tickets.id', '=', 'solved_tickets.id_ticket')
+                    ->orderBy('solved_tickets.solved', 'asc')->select('tickets.*')
+                    ->sortable()->paginate(6)->fragment('tickets');
 
         return view('tech.lista_ticketa', [
             'tickets' => $priority,

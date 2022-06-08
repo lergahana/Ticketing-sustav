@@ -15,6 +15,9 @@ return [
 
     'previous' => '&laquo; Prethodni',
     'next' => 'Sljedeći &raquo;',
-    'Showing :value to :value of :value results' => 'Zapisi od :value do :value od ukupno :value zapisa',
+    'showing' => 'Zapisi',
+    'of' => 'od',
+    'to' => 'do',
+    'results' => 'zapisa',
 
 ];

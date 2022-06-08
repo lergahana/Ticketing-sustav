@@ -3,7 +3,7 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" data-theme="pastel" id="here">
 
             @php
-                if ($num_tickets > 5){
+                if ($num_tickets > 6){
                     $display = "";
                 } else {
                     $display = "none";

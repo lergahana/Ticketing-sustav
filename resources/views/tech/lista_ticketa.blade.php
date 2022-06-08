@@ -12,7 +12,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" data-theme="pastel">
                 @php
-                    if ($num_tickets > 5){
+                    if ($num_tickets > 6){
                         $display = "";
                     } else {
                         $display = "none";
