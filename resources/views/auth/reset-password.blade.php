@@ -1,7 +1,9 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <a href="/">
+                <img src="{{ asset('images/logo2.png') }}" class="img-fluid" alt="Ticketing sustav" style="height:25px;">
+            </a>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -27,9 +29,9 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-jet-button>
-                    {{ __('Reset Password') }}
-                </x-jet-button>
+                <x-button class="ml-3" style="background-color:#D77FA1 ;">
+                    {{ __('Spremi') }}
+                </x-button>
             </div>
         </form>
     </x-jet-authentication-card>

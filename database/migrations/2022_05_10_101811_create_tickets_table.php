@@ -18,12 +18,13 @@ class CreateTicketsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->unsignedBigInteger('id_status');
-            $table->foreign('id_status')->references('id')->on('status')->onDelete('cascade');;
+            $table->foreign('id_status')->references('id')->on('status')->onDelete('cascade');
             $table->unsignedBigInteger('id_client');
-            $table->foreign('id_client')->references('id')->on('clients')->onDelete('cascade');;
+            $table->foreign('id_client')->references('id')->on('clients')->onDelete('cascade');
             $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
