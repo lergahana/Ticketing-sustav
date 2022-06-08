@@ -21,7 +21,7 @@ Route::get('/dashboard', 'App\Http\Controllers\HomeController@home')->name('dash
 Route::get('/home', 'App\Http\Controllers\HomeController@home')->name('home');
 
 Route::group(['middleware' => 'agent'], function () {
-    Route::middleware(['auth:sanctum', 'verified'])->get('/send_email', '\App\Http\Controllers\EmailController@send')->name('send_email');
+    Route::middleware(['auth:sanctum', 'verified'])->get('/send_email', 'App\Http\Controllers\EmailController@send')->name('send_email');
     
     Route::middleware(['auth:sanctum', 'verified'])->get('/novi_ticket', 'App\Http\Controllers\TicketsController@forma_novi')->name('novi_ticket');
 

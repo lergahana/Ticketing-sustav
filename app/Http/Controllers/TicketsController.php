@@ -364,10 +364,10 @@ class TicketsController extends Controller
     	$user = User::where('id', $tech)->get();
 
         $project = [
-            'greeting' => 'Hi '.$user[0]->name.',',
-            'body' => 'There is a new ticket assigned to you by '.$agent[0]->name.'.',
-            'thanks' => 'Thank you!',
-            'actionText' => 'View Project',
+            'greeting' => 'Hej '.$user[0]->name.',',
+            'body' => $agent[0]->name.' vam je dodijelio novi ticket.',
+            'thanks' => 'Hvala!',
+            'actionText' => 'Otvori projekt',
             'actionURL' => url('/'),
             'id' => 57
         ];
