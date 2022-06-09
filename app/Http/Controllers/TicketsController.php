@@ -242,19 +242,20 @@ class TicketsController extends Controller
             'status' => 'required',
         ]);
 
+
         $ticket = Ticket::find($id);
         $client = Client::find($ticket->id_client);
 
         $agent = User::where('id', $ticket->id_user)->get();
 
-        $ticket->name = $request->name;
+        $ticket->name = $validated['name'];
 
         $id_user = Auth::id();
         $ticket->id_user = $id_user;
 
-        $ticket->description = $request->opis;
+        $ticket->description = $validated['opis'];
 
-        
+    
 
         if($request->tech){
             $old_relation = TicketTechnician::where('id_ticket', $id)->delete();
@@ -266,29 +267,29 @@ class TicketsController extends Controller
                 $relation->id_technician = $technician[0];
                 $relation->save();
                 if($notification->count() <= 0){
-                    $sending = $this->send($tech, $agent, $request->status);
+                    $sending = $this->send($tech, $agent, $validated['status']);
                 }
             }
         }
 
-        if ($request->klijent){
-            $ticket->id_client = $request->klijent;
+        if (isset($validated['klijent'])){
+            $ticket->id_client = $validated['klijent'];
         }
 
-        $status = Status::where('status', $request->status)->get()->pluck('id')->toArray();
+        $status = Status::where('status', $validated['status'])->get()->pluck('id')->toArray();
 
         $solved = SolvedTicket::where('id_ticket', $id)->delete();
         
-        if($request->tech == null && $request->status != 'zatvoren'){
+        if($request->tech == null && $validated['status'] != 'zatvoren'){
             $old_relation = TicketTechnician::where('id_ticket', $id)->delete();
             $status = Status::where('status', 'otvoren')->get()->pluck('id')->toArray();
         }
         $ticket->id_status = $status[0];
 
         $ticket->save();
-        if ($request->status == "otvoren") return redirect('/otvoreni_ticketi');
-        if ($request->status == "zadužen") return redirect('/zaduzeni_ticketi');
-        if ($request->status == "zatvoren") return redirect('/zatvoreni_ticketi');
+        if ($validated['status'] == "otvoren") return redirect('/otvoreni_ticketi');
+        if ($validated['status'] == "zadužen") return redirect('/zaduzeni_ticketi');
+        if ($validated['status'] == "zatvoren") return redirect('/zatvoreni_ticketi');
     }
 
     /**
@@ -326,21 +327,21 @@ class TicketsController extends Controller
         ]);
 
         $ticket = new Ticket();
-        $ticket->name = $request->name;
+        $ticket->name = $validated['name'];
 
         $id_user = Auth::id();
         $ticket->id_user = $id_user;
 
         $agent = User::where('id', $id_user)->get();
 
-        $ticket->description = $request->opis;
+        $ticket->description = $validated['opis'];
 
-        $ticket->id_client = $request->klijent;
+        $ticket->id_client = $validated['klijent'];
 
         if($request->tech == null){
-            $request->status = 'otvoren';
+            $validated['status'] = 'otvoren';
         }
-        $status = Status::where('status', $request->status)->get()->pluck('id')->toArray();
+        $status = Status::where('status', $validated['status'])->get()->pluck('id')->toArray();
         $ticket->id_status = $status[0];
 
         $ticket->save();
@@ -354,13 +355,13 @@ class TicketsController extends Controller
                 $relation->id_technician = $technician[0];
                 $relation->save();
                 if($notification->count() <= 0){
-                    $sending = $this->send($tech, $agent, $request->status);
+                    $sending = $this->send($tech, $agent, $validated['status']);
                 }
             }
         }
 
-        if ($request->status == "otvoren") return redirect('/otvoreni_ticketi');
-        if ($request->status == "zadužen") return redirect('/zaduzeni_ticketi');
+        if ($validated['status'] == "otvoren") return redirect('/otvoreni_ticketi');
+        if ($validated['status'] == "zadužen") return redirect('/zaduzeni_ticketi');
     }
 
     public function send($tech, $agent, $status) 

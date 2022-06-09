@@ -60,4 +60,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function tickets() {
+        return $this->hasMany(Ticket::class);
+    }
 }

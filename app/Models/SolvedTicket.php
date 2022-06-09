@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class SolvedTicket extends Model
 {
-    use HasFactory;
 
-    use Sortable;
-
+    use HasFactory, Sortable;
     public $sortable = ['id_ticket', 'solved'];
+    protected $fillable = [
+        'id_ticket',
+        'solved',
+    ];
 
 }

@@ -20,9 +20,9 @@ class ClientsController extends Controller
             'name' => 'required',
         ]);
 
-        $client = new Client();
-        $client->name = $request->name;
-        $client->save();
+        Client::query()->create([
+            'name' => $validated['name'],
+        ]);
 
         return redirect('home');
     }

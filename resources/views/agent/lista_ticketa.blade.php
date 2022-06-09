@@ -24,9 +24,9 @@
                     @endif
                     {{ $ticket->name }}
                     <div style="float:right; vertical-align: top;">
-                        <a href="/prikazi_ticket/{{ $ticket->id }}"><button class="btn btn-pink-primary">Prikaži</button></a>
-                        <a href="/uredi_ticket/{{ $ticket->id }}"><button type="submit" class="btn btn-pink-secondary">Uredi </button></a>
-                        <a href="/obrisi_ticket/{{ $ticket->id }}"><button type="submit" class="btn btn-pink-danger" onclick = "return confirm('Jeste li sigurni da želite izbrisati ovaj ticket?')">Obriši </button></a>
+                        <form action="/prikazi_ticket/{{ $ticket->id }}" method="GET"><button class="btn btn-pink-primary">Prikaži</button></form>
+                        <form action="/uredi_ticket/{{ $ticket->id }}" method="GET"><button type="submit" class="btn btn-pink-secondary">Uredi</button></form>
+                        <form action="{{ route('obrisi_ticket', $ticket->id) }}" method="POST">@csrf @method('DELETE')<button type="submit" class="btn btn-pink-danger" onclick = "return confirm('Jeste li sigurni da želite izbrisati ovaj ticket?')">Obriši</button></form>
                     </div>
                 </div>
             @empty
@@ -50,3 +50,9 @@
         </div>
     </div>
 </div>
+
+<style>
+    form {
+        display: inline;
+    }
+</style>

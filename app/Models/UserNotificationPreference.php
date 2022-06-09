@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class UserNotificationPreference extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'id_user',
+        'notification',
+    ];
+
     public $table = "users_notification_preferences";
     protected $primaryKey = 'id_user';
 }

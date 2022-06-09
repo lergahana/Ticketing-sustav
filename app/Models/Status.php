@@ -9,4 +9,12 @@ class Status extends Model
 {
     use HasFactory;
     public $table = "status";
+
+    protected $fillable = [
+        'status',
+    ];
+    
+    public function tickets() {
+        return $this->hasMany(Ticket::class);
+    }
 }

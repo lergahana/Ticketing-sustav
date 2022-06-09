@@ -9,13 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class TicketTechnician extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
-    use Sortable;
+    public $sortable = ['id_ticket', 'id_technician'];
 
-    public $sortable = ['id_ticket',
-                        'id_technician'
-                        ];
+    protected $fillable = [
+        'id_ticket',
+        'id_technician',
+    ];
 
     public $table = "tickets_technicians";
 }

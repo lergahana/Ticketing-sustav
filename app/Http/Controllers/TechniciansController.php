@@ -76,13 +76,13 @@ class TechniciansController extends Controller
         $exists = SolvedTicket::where('id_ticket', $id)->get();
 
         if ($exists->count() <= 0){
-            $solved = new SolvedTicket();
-            $solved->id_ticket = $id;
-            $solved->solved = 1;
-            $solved->save();
+            SolvedTicket::query()->create([
+                'id_ticket' => $id,
+                'solved' => 1,
+            ]);
         }
         
-        return $this->index_tickets();
+        return redirect('lista_ticketa');
 
     }
 

@@ -36,7 +36,7 @@
                             {{ $ticket->name }}
                             <div style="float:right; vertical-align: top;">
                                 <a href="/tech/prikazi_ticket/{{ $ticket->id }}"><button class="btn btn-pink-primary">Prikaži</button></a>
-                                <a href="/tech/zatvori_ticket/{{ $ticket->id }}"><button type="submit" class="btn btn-pink-secondary" onclick = "return confirm('Jeste li sigurni da želite zatvoriti ovaj ticket?')">Zatvori ticket</button></a>
+                                <form action="{{ route('tech/zatvori_ticket', $ticket->id) }}" method=POST>@csrf @method('POST')<button type="submit" class="btn btn-pink-secondary" onclick = "return confirm('Jeste li sigurni da želite zatvoriti ovaj ticket?')">Zatvori ticket</button></form>
                             </div>
                         @endif
                     </div>
@@ -57,3 +57,9 @@
         </div>
     </div>
 </x-app-layout>
+
+<style>
+    form {
+        display:inline;
+    }
+</style>

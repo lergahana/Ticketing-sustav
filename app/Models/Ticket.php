@@ -11,13 +11,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ticket extends Model
 {
-    use Sortable;
+    use Sortable, HasFactory, SoftDeletes;
 
-    public $sortable = ['name',
-                        'created_at',
-                        ];
+    public $sortable = ['name', 'created_at'];
 
-    use HasFactory;
+    protected $fillable = [
+        'name',
+        'description',
+        'id_status',
+        'id_client',
+        'id_user',
+    ];
 
-    use SoftDeletes;
+    public function status() {
+        return $this->belongsTo(Status::class);
+    }
+
+    public function client() {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function agent() {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function ticket_technicians() {
+        return $this->belongsToMany(Ticket::class, 'ticket_technicians', 'id_ticket', 'id_technician')->withTimestamps();
+    }
+
 }
